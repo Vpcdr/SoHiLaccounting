@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ضربِ نو | آموزش جدول ضرب</title>
+<meta name="description" content="آموزش کودکانه جدول ضرب برای سنین 8 تا 12 سال">
+<link rel="icon" href="assets/logo.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#3aa7ff">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="sky" data-font="medium">
+<header class="topbar">
+  <div class="brand"><img src="assets/logo.png" alt="لوگوی ضرب نو" class="logo"><div><h1>ضربِ نو</h1><p>آموزش جدول ضرب • ۸ تا ۱۲ سال</p></div></div>
+  <div class="user-chip"><span id="helloName">سلام دوست من! 👋</span> <span id="headerStars">⭐ 0</span></div>
+</header>
+<main>
+<section id="tab-learn" class="tab active">
+  <div class="hero"><h2>🐻 بیا با هم ضرب یاد بگیریم!</h2><p>یک جدول رو انتخاب کن، با صدای بلند بخون و تمرین کن.</p></div>
+  <div class="table-picker" id="tablePicker"></div>
+  <div class="card">
+    <div class="learn-head"><span class="animal" id="learnAnimal">🐻</span><div><h3 id="learnTitle">جدول ضرب ۵</h3><p>با حیوان‌های مهربان یاد بگیر!</p></div><button class="btn small" onclick="speakTable()">🔊 خواندن</button></div>
+    <div class="mult-grid" id="multGrid"></div>
+    <div class="quick"><h4>⚡ تمرین سریع همین جدول</h4><div class="quick-box"><span id="quickQ">؟ × ؟ = ؟</span><button class="btn primary" onclick="newQuick()">سوال جدید</button><button class="btn" onclick="showQuick()">نمایش جواب</button><span id="quickA" class="quick-a"></span></div></div>
+  </div>
+  <div class="card"><h3>📚 همه جدول‌ها (۱ تا ۱۰)</h3><div class="all-tables" id="allTables"></div>
+    <div class="actions"><button class="btn primary" onclick="window.print()">🖨️ دریافت PDF / چاپ</button><button class="btn" onclick="shareApp()">📤 ارسال به برنامه‌های دیگر</button><button class="btn" onclick="copyTables()">📋 کپی جدول‌ها</button></div>
+    <p class="hint">برای PDF: در پنجره چاپ گزینه Save as PDF را انتخاب کن.</p></div>
+  <div class="card"><h3>💡 ترفندهای جادویی</h3><div class="tricks">
+    <div class="trick"><b>× ۰</b><span>همیشه صفر! ۷×۰=۰</span></div><div class="trick"><b>× ۱</b><span>خود عدد! ۸×۱=۸</span></div><div class="trick"><b>× ۲</b><span>دو برابر! ۶×۲=۱۲</span></div><div class="trick"><b>× ۵</b><span>۵،۱۰،۱۵...</span></div><div class="trick"><b>× ۹</b><span>۹×۳=۲۷</span></div><div class="trick"><b>× ۱۰</b><span>یک صفر تهش! ۴×۱۰=۴۰</span></div></div></div>
+  <div id="printArea" class="print-area"><div class="print-head"><img src="assets/logo.png"><h2>جدول ضرب کامل - ضربِ نو</h2></div><div id="printTables"></div></div>
+</section>
+<section id="tab-quiz" class="tab">
+  <div class="hero"><h2>🐰 آزمون خرگوش باهوش!</h2><p>۲۰ سوال، ۴ گزینه. هر چقدر خواستی دوباره آزمون بده!</p></div>
+  <div class="card" id="quizStartCard"><div class="quiz-start"><span class="big">🐰</span><h3>آماده‌ای؟</h3><p>۲۰ سوال ضرب از جدول ۱ تا ۱۰</p><button class="btn primary big-btn" onclick="startQuiz()">🚀 شروع آزمون</button></div></div>
+  <div class="card hidden" id="quizBox"><div class="progress-row"><span id="qProgress">سوال ۱ از ۲۰</span><span id="qScore">⭐ ۰ درست</span></div><div class="progress"><div id="progressBar"></div></div><h3 class="question" id="questionText">۳ × ۴ = ؟</h3><div class="options" id="options"></div><div id="feedback" class="feedback"></div><button class="btn primary hidden" id="nextBtn" onclick="nextQuestion()">سوال بعدی ➡️</button></div>
+  <div class="card hidden" id="resultBox"><h2>🎉 آفرین! آزمون تمام شد</h2><div class="result-big"><span id="resultEmoji">🏆</span><h3 id="resultScore">۱۸ از ۲۰</h3><p id="resultMsg"></p><div id="resultStars" class="stars-big"></div></div><button class="btn primary" onclick="startQuiz()">🔄 آزمون دوباره</button></div>
+  <div class="card"><h3>📒 کارنامه من</h3><div class="stats" id="statsBox"></div><div id="historyList"></div><button class="btn danger" onclick="clearHistory()">🗑️ پاک کردن کارنامه</button></div>
+</section>
+<section id="tab-settings" class="tab">
+  <div class="hero"><h2>🐶 تنظیمات سگ مهربون!</h2><p>اپ رو به سلیقه خودت خوشگل کن.</p></div>
+  <div class="card"><label>نام دانش‌آموز</label><input id="studentName" placeholder="مثلا: سارا" oninput="saveName(this.value)"><label class="lbl">🎨 پوسته‌ها</label><div class="themes" id="themes"></div><label class="lbl">🔤 اندازه فونت</label><div class="seg"><button onclick="setFont('small')">کوچک</button><button onclick="setFont('medium')">متوسط</button><button onclick="setFont('large')">بزرگ</button></div><label class="lbl">🔊 صدای تشویق</label><div class="seg"><button onclick="setSound(true)">روشن ✅</button><button onclick="setSound(false)">خاموش 🔇</button></div></div>
+  <div class="card"><h3>📖 راهنمای نرم‌افزار</h3><details open><summary>تب آموزش؟</summary><p>جدول را انتخاب کن، بخوان و تمرین سریع بزن.</p></details><details><summary>آزمون؟</summary><p>۲۰ سوال چهارگزینه‌ای. نمره در کارنامه ذخیره می‌شود.</p></details><details><summary>PDF و ارسال؟</summary><p>دکمه چاپ را بزن و Save as PDF را انتخاب کن. دکمه ارسال جدول‌ها را به برنامه‌های دیگر می‌فرستد.</p></details><details><summary>نمره‌ها کجا ذخیره می‌شوند؟</summary><p>در مرورگر خودت (localStorage) و پاک نمی‌شوند مگر خودت پاک کنی.</p></details></div>
+  <div class="card about"><img src="assets/logo.png"><h3>ضربِ نو</h3><p>یادگیری ضرب با بازی و شادی. ساخته‌شده با ❤️ برای ۸ تا ۱۲ سال.</p><button class="btn" onclick="resetAll()">↺ بازنشانی تنظیمات</button></div>
+</section>
+</main>
+<nav class="bottom-nav">
+  <button class="nav-btn active" data-tab="learn" onclick="switchTab('learn')"><span>🐻</span><b>آموزش</b></button>
+  <button class="nav-btn" data-tab="quiz" onclick="switchTab('quiz')"><span>🐰</span><b>آزمون</b></button>
+  <button class="nav-btn" data-tab="settings" onclick="switchTab('settings')"><span>🐶</span><b>تنظیمات</b></button>
+</nav>
+<div id="toast"></div>
+<script src="js/app.js"></script>
+</body>
+</html>
